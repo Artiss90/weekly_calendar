@@ -11,14 +11,3 @@
 .createBtn {
   margin-left: 30px;
 }
-.tableDays {
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-}
-
-.tableDays th,
-.tableDays td {
-  padding: 7px;
-  border: 1px solid #2a2a2a;
-}

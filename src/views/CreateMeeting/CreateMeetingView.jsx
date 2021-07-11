@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import meetingOperations from "redux/meetingRedux/meetingOperations";
+import meetingSelectors from "redux/meetingRedux/meetingSelectors";
 import style from "./CreateMeetingView.module.css";
 
 function CreateMeetingView() {
+  const dispatch = useDispatch();
+  const meetings = useSelector(meetingSelectors.getMeetingItems);
   const [titleSelect, setTitleSelect] = useState("");
   const [nameSelect, setNameSelect] = useState("");
   const [daySelect, setDaySelect] = useState("Mon");
@@ -13,10 +18,6 @@ function CreateMeetingView() {
   };
 
   const handleChangeName = (e) => {
-    console.log(
-      "🚀 ~ file: CreateMeetingView.jsx ~ line 11 ~ CreateMeetingView ~ nameSelect",
-      nameSelect
-    );
     if (nameSelect === "") {
       return setNameSelect(e.target.value);
     }
@@ -31,41 +32,58 @@ function CreateMeetingView() {
       const filterNames = arrayNames.filter((item) => {
         return item !== e.target.value;
       });
-      console.log(
-        "🚀 ~ file: CreateMeetingView.jsx ~ line 23 ~ CreateMeetingView ~ filterNames",
-        filterNames
-      );
       return setNameSelect(filterNames.join(", "));
     }
   };
 
   const handleChangeDay = (e) => {
     setDaySelect(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleChangeTime = (e) => {
     setTimeSelect(e.target.value);
-    console.log(e.target.value);
   };
 
   const toggleMenu = () => {
     const menuNamesRef = document.querySelector("#list-group");
-    console.log(
-      "🚀 ~ file: CreateMeetingView.jsx ~ line 37 ~ CreateMeetingView ~ menuNamesRef",
-      menuNamesRef
-    );
     menuNamesRef.classList.toggle("active");
   };
 
   const submitMeeting = (e) => {
     e.preventDefault();
+    // if (meetings.find(meeting => meeting.day === daySelect &&  meeting.time === timeSelect)) {
+    //   // * проверка на повторение даты
+    //   console.error(`Date is already in meetings!`);
+    //   return;
+    // }
+
+    const meetingForm = {
+      title: titleSelect,
+      names: nameSelect,
+      day: daySelect,
+      time: timeSelect,
+    };
+    console.log(
+      "🚀 ~ file: CreateMeetingView.jsx ~ line 64 ~ submitMeeting ~ meetingForm",
+      meetingForm
+    );
+
     console.log({
       title: titleSelect,
       names: nameSelect,
       day: daySelect,
       time: timeSelect,
     });
+
+    dispatch(meetingOperations.addMeeting(meetingForm));
+    reset();
+  };
+
+  const reset = () => {
+    setTitleSelect("");
+    setNameSelect("");
+    setDaySelect("Mon");
+    setTimeSelect("10.00");
   };
   return (
     <>
@@ -136,9 +154,7 @@ function CreateMeetingView() {
             className={style.selectDay}
             aria-label="Default select example"
           >
-            <option value="Mon" selected="selected">
-              Monday
-            </option>
+            <option value="Mon">Monday</option>
             <option value="Tue">Tuesday</option>
             <option value="Wed">Wednesday</option>
             <option value="Thu">Thursday</option>
@@ -155,9 +171,7 @@ function CreateMeetingView() {
             className={style.selectTime}
             aria-label="Default select example"
           >
-            <option value="10.00" selected="selected">
-              10.00
-            </option>
+            <option value="10.00">10.00</option>
             <option value="11.00">11.00</option>
             <option value="12.00">12.00</option>
             <option value="13.00">13.00</option>

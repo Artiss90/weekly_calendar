@@ -2,12 +2,3 @@
   padding-left: 30px;
   padding-right: 30px;
 }
-.calendarHead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 7px;
-}
-.createBtn {
-  margin-left: 30px;
-}

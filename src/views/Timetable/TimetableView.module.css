@@ -1,0 +1,24 @@
+.page {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.calendarHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+.createBtn {
+  margin-left: 30px;
+}
+.tableDays {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.tableDays th,
+.tableDays td {
+  padding: 7px;
+  border: 1px solid #2a2a2a;
+}

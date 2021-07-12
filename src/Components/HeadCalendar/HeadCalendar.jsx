@@ -7,7 +7,7 @@ function HeadCalendar({ namePerson, handleChange }) {
       <h2>Calendar</h2>
       <div>
         <select
-          defaultValue={namePerson}
+          value={namePerson}
           onChange={handleChange}
           aria-label="Default select example"
         >

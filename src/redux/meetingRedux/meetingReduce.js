@@ -15,6 +15,11 @@ const filterRedux = createReducer("", {
   [meetingAction.changeFilter]: (_, { payload }) => payload,
 });
 
+const openCreateView = createReducer(true, {
+  [meetingAction.closeCreateView]: () => false,
+  [meetingAction.openCreateView]: () => true,
+});
+
 const errorRedux = createReducer(null, {
   [meetingAction.fetchMeetingError]: (_, { payload }) =>
     "fetchMeetingError: " + payload.message,
@@ -28,4 +33,5 @@ export default combineReducers({
   items: itemsRedux,
   filter: filterRedux,
   error: errorRedux,
+  openCreateView: openCreateView,
 });

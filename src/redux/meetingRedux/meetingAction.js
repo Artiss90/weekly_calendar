@@ -14,6 +14,9 @@ const deleteMeetingError = createAction("meeting/deleteMeetingError");
 
 const changeFilter = createAction("meeting/change_filter");
 
+const openCreateView = createAction("meeting/open");
+const closeCreateView = createAction("meeting/close");
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   fetchMeetingRequest,
@@ -26,4 +29,6 @@ export default {
   deleteMeetingSuccess,
   deleteMeetingError,
   changeFilter,
+  openCreateView,
+  closeCreateView,
 };

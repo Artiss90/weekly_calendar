@@ -3,6 +3,7 @@ import { createSelector } from "reselect";
 const getMeetingItems = (state) => state.meetings.items;
 const getMeetingFilter = (state) => state.meetings.filter;
 const getMeetingError = (state) => state.meetings.error;
+const getOpenCreateView = (state) => state.meetings.openCreateView;
 
 const getVisibleFilterMeeting = createSelector(
   [getMeetingFilter, getMeetingItems],
@@ -18,5 +19,6 @@ export default {
   getMeetingFilter,
   getMeetingItems,
   getMeetingError,
+  getOpenCreateView,
   getVisibleFilterMeeting,
 };

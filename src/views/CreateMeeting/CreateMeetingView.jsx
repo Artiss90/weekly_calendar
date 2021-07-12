@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import meetingAction from "redux/meetingRedux/meetingAction";
 import meetingOperations from "redux/meetingRedux/meetingOperations";
 import meetingSelectors from "redux/meetingRedux/meetingSelectors";
 import style from "./CreateMeetingView.module.css";
@@ -51,11 +52,15 @@ function CreateMeetingView() {
 
   const submitMeeting = (e) => {
     e.preventDefault();
-    // if (meetings.find(meeting => meeting.day === daySelect &&  meeting.time === timeSelect)) {
-    //   // * проверка на повторение даты
-    //   console.error(`Date is already in meetings!`);
-    //   return;
-    // }
+    if (
+      meetings.find(
+        (meeting) => meeting.day === daySelect && meeting.time === timeSelect
+      )
+    ) {
+      // * проверка на повторение даты
+      console.error(`Date is already in meetings!`);
+      return;
+    }
 
     const meetingForm = {
       title: titleSelect,
@@ -63,19 +68,9 @@ function CreateMeetingView() {
       day: daySelect,
       time: timeSelect,
     };
-    console.log(
-      "🚀 ~ file: CreateMeetingView.jsx ~ line 64 ~ submitMeeting ~ meetingForm",
-      meetingForm
-    );
-
-    console.log({
-      title: titleSelect,
-      names: nameSelect,
-      day: daySelect,
-      time: timeSelect,
-    });
 
     dispatch(meetingOperations.addMeeting(meetingForm));
+    dispatch(meetingAction.closeCreateView());
     reset();
   };
 
@@ -148,7 +143,7 @@ function CreateMeetingView() {
         <label className={style.formLabel}>
           Day:
           <select
-            defaultValue={daySelect}
+            value={daySelect}
             onChange={handleChangeDay}
             required
             className={style.selectDay}
@@ -165,7 +160,7 @@ function CreateMeetingView() {
         <label className={style.formLabel}>
           Time:
           <select
-            defaultValue={timeSelect}
+            value={timeSelect}
             onChange={handleChangeTime}
             required
             className={style.selectTime}

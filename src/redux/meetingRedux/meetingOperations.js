@@ -1,29 +1,25 @@
 import meetingAction from "./meetingAction";
 import meetingSelectors from "./meetingSelectors";
 
-const fetchMeeting = () => async (dispatch) => {
+const fetchAllMeeting = () => (dispatch) => {
   dispatch(meetingAction.fetchMeetingRequest());
   try {
-    const items = await meetingSelectors.getMeetingItems();
+    const items = meetingSelectors.getMeetingItems();
     dispatch(meetingAction.fetchMeetingSuccess(items));
   } catch (error) {
     console.error(error);
   }
 };
 
-const addMeeting = (text) => async (dispatch) => {
+const addMeeting = (text) => (dispatch) => {
   console.log("no async", text);
-  console.log(
-    "🚀 ~ file: meetingOperations.js ~ line 15 ~ addMeeting ~ text",
-    text
-  );
   dispatch(meetingAction.addMeetingRequest());
   try {
     const meeting = {
-      title: text.titleSelect,
-      names: text.nameSelect,
-      day: text.daySelect,
-      time: text.timeSelect,
+      title: text.title,
+      names: text.name,
+      day: text.day,
+      time: text.time,
     };
     dispatch(meetingAction.addMeetingSuccess(meeting));
   } catch (error) {
@@ -31,7 +27,7 @@ const addMeeting = (text) => async (dispatch) => {
   }
 };
 
-const deleteMeeting = (id) => async (dispatch) => {
+const deleteMeeting = (id) => (dispatch) => {
   dispatch(meetingAction.deleteMeetingRequest());
   try {
     dispatch(meetingAction.addMeetingSuccess(id));
@@ -41,4 +37,4 @@ const deleteMeeting = (id) => async (dispatch) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { addMeeting, deleteMeeting, fetchMeeting };
+export default { addMeeting, deleteMeeting, fetchAllMeeting };

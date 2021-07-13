@@ -1,0 +1,7 @@
+.btnDelete {
+  position: absolute;
+  top: 20%;
+  right: 0;
+  border: none;
+  background: inherit;
+}

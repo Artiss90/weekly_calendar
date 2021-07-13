@@ -17,9 +17,10 @@ const addMeeting = (text) => (dispatch) => {
   try {
     const meeting = {
       title: text.title,
-      names: text.name,
+      names: text.names,
       day: text.day,
       time: text.time,
+      date: text.date,
     };
     dispatch(meetingAction.addMeetingSuccess(meeting));
   } catch (error) {

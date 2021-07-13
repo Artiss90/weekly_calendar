@@ -67,6 +67,7 @@ function CreateMeetingView() {
       names: nameSelect,
       day: daySelect,
       time: timeSelect,
+      date: `${daySelect}-${timeSelect}`,
     };
 
     dispatch(meetingOperations.addMeeting(meetingForm));

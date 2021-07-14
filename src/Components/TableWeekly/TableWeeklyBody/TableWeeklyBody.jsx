@@ -1,3 +1,4 @@
+import EventCatcher from "../EventCatcher/EventCatcher";
 import TableCell from "../TableCell/TableCell";
 
 function TableWeeklyBody({ time, dayList, filteredMeetingListByTime }) {
@@ -11,20 +12,21 @@ function TableWeeklyBody({ time, dayList, filteredMeetingListByTime }) {
           const meetingByDate = filteredMeetingListByTime.find(
             (item) => item.date === date
           );
-          // * ставим условие в тернарном операторе, чтоб рендерил заголовок если совпадение есть (filteredMeetingListByTime !== false)
+          // * ставим условие в тернарном операторе, чтоб рендерил заголовок если совпадение есть (meetingByDate !== false)
           return (
             <td key={date} data-day-time={date}>
               {meetingByDate ? (
                 <TableCell title={meetingByDate.title} date={date} />
               ) : (
-                <TableCell date={date} />
+                <EventCatcher date={date} />
               )}
             </td>
           );
         }
+        // * если встречи нет, то рендерим улавливатель событии(EventCatcher)
         return (
           <td key={date} data-day-time={date}>
-            {date}
+            <EventCatcher date={date} />
           </td>
         );
       })}

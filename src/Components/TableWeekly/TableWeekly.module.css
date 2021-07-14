@@ -6,7 +6,9 @@
 
 .tableDays th,
 .tableDays td {
-  padding: 7px;
+  width: 15%;
+  height: 50px;
+  padding: 0px;
   border: 1px solid #2a2a2a;
 }
 .tableDays td {

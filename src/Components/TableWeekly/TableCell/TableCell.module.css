@@ -4,4 +4,12 @@
   right: 0;
   border: none;
   background: inherit;
+  cursor: pointer;
+}
+.cell {
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  background-color: darkseagreen;
+  cursor: grab;
 }

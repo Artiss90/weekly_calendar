@@ -8,19 +8,17 @@ function TableCell({ title, date }) {
 
   // ? если есть title, то добавляем кнопку удаления
   return (
-    <>
+    <div className={style.cell} draggable="true">
       <p>{title}</p>
-      {title && (
-        <button
-          className={style.btnDelete}
-          type="button"
-          onClick={() => getDeleteMeeting(date)}
-          aria-label="get delete meeting"
-        >
-          &#10006;
-        </button>
-      )}
-    </>
+      <button
+        className={style.btnDelete}
+        type="button"
+        onClick={() => getDeleteMeeting(date)}
+        aria-label="get delete meeting"
+      >
+        &#10006;
+      </button>
+    </div>
   );
 }
 

@@ -6,7 +6,9 @@ import TableWeekHead from "./TableWeeklyHead/TableWeekHead";
 import style from "./TableWeekly.module.css";
 
 function TableWeekly() {
-  const meetingList = useSelector(meetingSelectors.getMeetingItems);
+  const visibleMeetingList = useSelector(
+    meetingSelectors.getVisibleFilterMeeting
+  );
 
   return (
     <table className={style.tableDays}>
@@ -19,7 +21,7 @@ function TableWeekly() {
       <tbody>
         {constants.TIME_LIST.map((time) => {
           // * фильтруем по времени суток
-          const filteredMeetingListByTime = meetingList.filter(
+          const filteredMeetingListByTime = visibleMeetingList.filter(
             (item) => item.time === time
           );
           return (

@@ -143,7 +143,7 @@ function CreateMeetingView() {
                     type="checkbox"
                     value={nameParticipant}
                     onChange={handleChangeName}
-                  />{" "}
+                  />
                   {nameParticipant}
                 </label>
               </li>

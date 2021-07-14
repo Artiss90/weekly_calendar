@@ -10,7 +10,7 @@ const getVisibleFilterMeeting = createSelector(
   (filter, allMeeting) => {
     const normalizedFilter = filter.toLowerCase();
     return allMeeting.filter((meeting) =>
-      meeting.name.toLowerCase().includes(normalizedFilter)
+      meeting.names.toLowerCase().includes(normalizedFilter)
     );
   }
 );

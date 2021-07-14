@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import meetingAction from "redux/meetingRedux/meetingAction";
 import meetingOperations from "redux/meetingRedux/meetingOperations";
 import meetingSelectors from "redux/meetingRedux/meetingSelectors";
+import constants from "helper/constants";
 import style from "./CreateMeetingView.module.css";
 
 function CreateMeetingView() {
@@ -71,9 +71,10 @@ function CreateMeetingView() {
     };
 
     dispatch(meetingOperations.addMeeting(meetingForm));
-    dispatch(meetingAction.closeCreateView());
+    closeCreateView();
     reset();
   };
+  const closeCreateView = () => dispatch(meetingAction.closeCreateView());
 
   const reset = () => {
     setTitleSelect("");
@@ -103,42 +104,22 @@ function CreateMeetingView() {
             className={style.btnDropdown}
             onClick={() => toggleMenu()}
           >
-            {nameSelect}{" "}
+            {nameSelect || "please, make a choice"}
           </button>
           <ul id="list-group" className={style.listGroup}>
-            <li>
-              <label className={style.itemGroup}>
-                <input
-                  className={style.inputGroup}
-                  type="checkbox"
-                  value="Maria"
-                  onChange={handleChangeName}
-                />{" "}
-                Maria
-              </label>
-            </li>
-            <li>
-              <label className={style.itemGroup}>
-                <input
-                  className={style.inputGroup}
-                  type="checkbox"
-                  value="Bob"
-                  onChange={handleChangeName}
-                />{" "}
-                Bob
-              </label>
-            </li>
-            <li>
-              <label className={style.itemGroup}>
-                <input
-                  className={style.inputGroup}
-                  type="checkbox"
-                  value="Alex"
-                  onChange={handleChangeName}
-                />{" "}
-                Alex
-              </label>
-            </li>
+            {constants.PARTICIPANT_LIST.map((nameParticipant) => (
+              <li key={nameParticipant}>
+                <label className={style.itemGroup}>
+                  <input
+                    className={style.inputGroup}
+                    type="checkbox"
+                    value={nameParticipant}
+                    onChange={handleChangeName}
+                  />{" "}
+                  {nameParticipant}
+                </label>
+              </li>
+            ))}
           </ul>
         </label>
         <label className={style.formLabel}>
@@ -150,11 +131,11 @@ function CreateMeetingView() {
             className={style.selectDay}
             aria-label="Default select example"
           >
-            <option value="Mon">Monday</option>
-            <option value="Tue">Tuesday</option>
-            <option value="Wed">Wednesday</option>
-            <option value="Thu">Thursday</option>
-            <option value="Fri">Friday</option>
+            {constants.DAY_LIST.map((day) => (
+              <option key={day} value={day}>
+                {day}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -167,29 +148,22 @@ function CreateMeetingView() {
             className={style.selectTime}
             aria-label="Default select example"
           >
-            <option value="10.00">10.00</option>
-            <option value="11.00">11.00</option>
-            <option value="12.00">12.00</option>
-            <option value="13.00">13.00</option>
-            <option value="14.00">14.00</option>
-            <option value="15.00">15.00</option>
-            <option value="16.00">16.00</option>
-            <option value="17.00">17.00</option>
-            <option value="18.00">18.00</option>
+            {constants.TIME_LIST.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
           </select>
         </label>
 
         <div className={style.formBtn}>
-          <Link to="/" exact="true">
-            {" "}
-            <button
-              type="button"
-              className={style.cancelBtn}
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
-          </Link>
+          <button
+            type="button"
+            className={style.cancelBtn}
+            onClick={closeCreateView}
+          >
+            Cancel
+          </button>
 
           <button type="submit" className={style.createBtn}>
             Create

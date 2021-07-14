@@ -4,6 +4,8 @@ import meetingAction from "redux/meetingRedux/meetingAction";
 import meetingOperations from "redux/meetingRedux/meetingOperations";
 import meetingSelectors from "redux/meetingRedux/meetingSelectors";
 import constants from "helper/constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import style from "./CreateMeetingView.module.css";
 
 function CreateMeetingView() {
@@ -53,12 +55,17 @@ function CreateMeetingView() {
   const submitMeeting = (e) => {
     e.preventDefault();
     if (
-      meetings.find(
-        (meeting) => meeting.day === daySelect && meeting.time === timeSelect
-      )
-    ) {
       // * проверка на повторение даты
-      console.error(`Date is already in meetings!`);
+      meetings.find((meeting) => meeting.date === `${daySelect}-${timeSelect}`)
+    ) {
+      notifyDate(`${daySelect}-${timeSelect}`);
+      return;
+    }
+    if (
+      // * проверяем, выбрали ли участника встречи
+      nameSelect === ""
+    ) {
+      notifyParticipant();
       return;
     }
 
@@ -82,8 +89,29 @@ function CreateMeetingView() {
     setDaySelect("Mon");
     setTimeSelect("10.00");
   };
+  const notifyDate = (text) =>
+    toast.warn(`Date(${text}) is already in meetings!`, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  const notifyParticipant = (text) =>
+    toast.warn("please, make a choice participant", {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   return (
     <>
+      <ToastContainer />
       <form className={style.formCreateMeeting} onSubmit={submitMeeting}>
         <label className={style.formLabel}>
           Name of the event:

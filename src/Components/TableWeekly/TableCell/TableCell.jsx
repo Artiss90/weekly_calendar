@@ -1,5 +1,11 @@
+import { useDispatch } from "react-redux";
+import meetingOperations from "redux/meetingRedux/meetingOperations";
 import style from "./TableCell.module.css";
 function TableCell({ title, date }) {
+  const dispatch = useDispatch();
+  const getDeleteMeeting = (date) =>
+    dispatch(meetingOperations.deleteMeeting(date));
+
   // ? если есть title, то добавляем кнопку удаления
   return (
     <>
@@ -8,7 +14,8 @@ function TableCell({ title, date }) {
         <button
           className={style.btnDelete}
           type="button"
-          onClick={() => console.log(date)}
+          onClick={() => getDeleteMeeting(date)}
+          aria-label="get delete meeting"
         >
           &#10006;
         </button>

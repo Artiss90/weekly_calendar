@@ -7,12 +7,11 @@ const fetchAllMeeting = () => (dispatch) => {
     const items = meetingSelectors.getMeetingItems();
     dispatch(meetingAction.fetchMeetingSuccess(items));
   } catch (error) {
-    console.error(error);
+    meetingAction.fetchMeetingError(error);
   }
 };
 
 const addMeeting = (text) => (dispatch) => {
-  console.log("no async", text);
   dispatch(meetingAction.addMeetingRequest());
   try {
     const meeting = {
@@ -24,16 +23,16 @@ const addMeeting = (text) => (dispatch) => {
     };
     dispatch(meetingAction.addMeetingSuccess(meeting));
   } catch (error) {
-    console.error(error);
+    meetingAction.addMeetingError(error);
   }
 };
 
-const deleteMeeting = (id) => (dispatch) => {
+const deleteMeeting = (date) => (dispatch) => {
   dispatch(meetingAction.deleteMeetingRequest());
   try {
-    dispatch(meetingAction.addMeetingSuccess(id));
+    dispatch(meetingAction.deleteMeetingSuccess(date));
   } catch (error) {
-    console.error(error);
+    meetingAction.deleteMeetingError(error);
   }
 };
 

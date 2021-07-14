@@ -8,7 +8,7 @@ const itemsRedux = createReducer([], {
     // * добавляем новую встречу в список встреч
     [..._, payload],
   [meetingAction.deleteMeetingSuccess]: (_, { payload }) =>
-    _.filter((meeting) => meeting.id !== payload),
+    _.filter((meeting) => meeting.date !== payload),
 });
 
 const filterRedux = createReducer("", {

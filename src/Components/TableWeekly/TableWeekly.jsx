@@ -1,27 +1,44 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import meetingSelectors from "redux/meetingRedux/meetingSelectors";
 import constants from "helper/constants";
 import TableWeeklyBody from "./TableWeeklyBody/TableWeeklyBody";
 import TableWeekHead from "./TableWeeklyHead/TableWeekHead";
 import style from "./TableWeekly.module.css";
+import meetingOperations from "redux/meetingRedux/meetingOperations";
 
 function TableWeekly() {
+  const dispatch = useDispatch();
+  const meetingList = useSelector(meetingSelectors.getMeetingItems);
   const visibleMeetingList = useSelector(
     meetingSelectors.getVisibleFilterMeeting
   );
-  const addSelect = (e) => e.target.classList.add(`selected`);
-  const removeSelect = (e) => e.target.classList.remove(`selected`);
+
+  const addSelect = (e) => e.target.classList.add("selected");
+  const removeSelect = (e) => e.target.classList.remove("selected");
   const pasteMeeting = (e) => {
     e.preventDefault();
-
     // *Находим перемещаемый элемент
-    const activeElement = document.querySelector(`.selected`);
+    const activeElement = document.querySelector(".selected");
     // *Находим элемент, над которым в данный момент находится курсор
     const currentElement = e.target;
+    //*Проверяем, что событие сработало не на том элементе, который мы перемещаем
     // *Проверяем, что событие сработало именно на ячейке улавливателя таблицы
+    const isMoveable =
+      activeElement !== currentElement &&
+      currentElement.hasAttribute("data-day-time");
+    if (!isMoveable) {
+      return;
+    }
     // *Проверяем, что ячейка не занята
+    const dateElement = currentElement.getAttribute("data-day-time");
+    if (meetingList.find((meeting) => meeting.date === dateElement)) {
+      return;
+    }
     // *Переписываем данные
+    // dispatch(meetingOperations.changeMeeting(dateElement))
   };
+
+  // editMeeting
   return (
     <table className={style.tableDays}>
       <thead>
@@ -34,6 +51,8 @@ function TableWeekly() {
         data-event-wrapper
         onDragStart={addSelect}
         onDragEnd={removeSelect}
+        onDragOver={pasteMeeting}
+        // drop={editMeeting}
       >
         {constants.TIME_LIST.map((time) => {
           // * фильтруем по времени суток

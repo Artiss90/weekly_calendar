@@ -6,9 +6,8 @@ function TableCell({ title, date }) {
   const getDeleteMeeting = (date) =>
     dispatch(meetingOperations.deleteMeeting(date));
 
-  // ? если есть title, то добавляем кнопку удаления
   return (
-    <div className={style.cell} draggable="true">
+    <div className={style.cell} draggable="true" data-date={date}>
       <p>{title}</p>
       <button
         className={style.btnDelete}

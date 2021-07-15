@@ -4,11 +4,18 @@ import meetingAction from "./meetingAction";
 
 const itemsRedux = createReducer([], {
   [meetingAction.fetchMeetingSuccess]: (_, { payload }) => payload,
+
   [meetingAction.addMeetingSuccess]: (_, { payload }) =>
     // * добавляем новую встречу в список встреч
     [..._, payload],
+
   [meetingAction.deleteMeetingSuccess]: (_, { payload }) =>
+    // * выводим все кроме совпадающего
     _.filter((meeting) => meeting.date !== payload),
+
+  [meetingAction.changeMeetingSuccess]: (_, { payload }) =>
+    // * выводим все кроме совпадающего и добавляем новый
+    [..._.filter((meeting) => meeting.date !== payload.date), payload.item],
 });
 
 const filterRedux = createReducer("", {

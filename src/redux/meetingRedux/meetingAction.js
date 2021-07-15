@@ -12,6 +12,10 @@ const deleteMeetingRequest = createAction("meeting/deleteMeetingRequest");
 const deleteMeetingSuccess = createAction("meeting/deleteMeetingSuccess");
 const deleteMeetingError = createAction("meeting/deleteMeetingError");
 
+const changeMeetingRequest = createAction("meeting/changeMeetingRequest");
+const changeMeetingSuccess = createAction("meeting/changeMeetingSuccess");
+const changeMeetingError = createAction("meeting/changeMeetingError");
+
 const changeFilter = createAction("meeting/change_filter");
 
 const openCreateView = createAction("meeting/open");
@@ -28,6 +32,9 @@ export default {
   deleteMeetingRequest,
   deleteMeetingSuccess,
   deleteMeetingError,
+  changeMeetingRequest,
+  changeMeetingSuccess,
+  changeMeetingError,
   changeFilter,
   openCreateView,
   closeCreateView,

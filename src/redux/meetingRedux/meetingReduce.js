@@ -15,7 +15,7 @@ const itemsRedux = createReducer([], {
 
   [meetingAction.changeMeetingSuccess]: (_, { payload }) =>
     // * выводим все кроме совпадающего и добавляем новый
-    [..._.filter((meeting) => meeting.date !== payload.date), payload.item],
+    [..._.filter((meeting) => meeting.date !== payload.date), payload.meeting],
 });
 
 const filterRedux = createReducer("", {
